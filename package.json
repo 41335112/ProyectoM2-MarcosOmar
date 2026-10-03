@@ -1,0 +1,23 @@
+{
+  "name": "proyectom2",
+  "version": "1.0.0",
+  "description": "Mini Blog",
+  "homepage": "https://github.com/41335112/ProyectoM2-MarcosOmar#readme",
+  "bugs": {
+    "url": "https://github.com/41335112/ProyectoM2-MarcosOmar/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/41335112/ProyectoM2-MarcosOmar.git"
+  },
+  "license": "ISC",
+  "author": "Marcos Omar Ortiz Godoy",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

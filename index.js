@@ -1,11 +1,9 @@
-const app = require("./src/server.js");
+const { app } = require("./src/server.js");
 
 
 
 
 
-
-const router = express.Router();
 
 
 

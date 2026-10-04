@@ -1,12 +1,12 @@
-const express = require("express");
+const app = require("./src/server.js");
 
-const app = express();
+
+
+
+
 
 const router = express.Router();
 
-app.use(express.json());
-
-app.use(router);
 
 
 app.listen(3000, function(){

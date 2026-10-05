@@ -11,26 +11,28 @@ function getAuthorsControllers(req, res){
   
   const resultado = getAuthorsServe();
  
-  req.status(201).json({
+  res.status(200).json({
     msg: 'todo ok en /',
     data: resultado
   });
 }
 
 function getAuthorIdControllers(req, res){
-    
-  const resultado = getAuthorIdServer();
+  
+  const { id } = req.params;  
+  const resultado = getAuthorIdServer(id);
 
-  req.status(200).json({ 
-    msg: 'Obtenido autor con ID ${id}'
+  res.status(200).json({ 
+    msg: `Obtenido autor con ID ${id}`
   })
 }
 
 function createAuthorControllers(req, res){
+  
+  const datosAutor = req.body;  
+  const crear = createAuthorServer(datosAutor);
 
-  const crear = createAuthorServer();
-
-  req.status(201).json({
+  res.status(201).json({
     msg: 'Autor creado exitosamente',
     data: crear
   });
@@ -39,21 +41,38 @@ function createAuthorControllers(req, res){
 
 function updateAuthorControllers(req, res){
  
- const actualizar = updateAuthorServer();
+  const { id } = req.params;
+  const datosAutor = req.body;
+  const actualizar = updateAuthorServer(id, datosAutor);
 
- req.status(200).json({
-    msg:'Autor actualizado correctamente'
- })
+  if (!actualizar) {
+    return res.status(404).json({ 
+        msg: `El autor con ID ${id} no existe`
+    });
+  }
+
+  res.status(200).json({
+    msg: `Autor con ID ${id} actualizado correctamente`,
+    data: actualizar
+  });
 
 }
 
 function deleteAuthorControllers(req, res){
+ 
+  const { id } = req.params;
+  const eliminar = deleteAuthorServer(id);
 
- const eliminar = deleteAuthorServer();
+  if (!eliminar) {
+    return res.status(404).json({
+        msg: `El autor con ID ${id} no existe`
+    });
+  }
 
- req.status(200).json({
-  msg: 'Autor con ID ${ } fue eliminado', eliminar
- })
+  res.status(200).json({
+    msg: `Autor con ID ${id} fue eliminado`,
+    data: eliminar
+  });
 }
 
 module.exports = {

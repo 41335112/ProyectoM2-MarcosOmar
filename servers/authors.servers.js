@@ -6,24 +6,49 @@ const getAuthorsServe = () => {
 
 }
 
-const getAuthorIdServer = () => {
+const getAuthorIdServer = (id) => {
     
-  return { id } = req.params
+  const autorEncontrado = authors.find((autor) => autor.id === Number(id));
+  return autorEncontrado
 }
 
-const createAuthorServer = () => {
+const createAuthorServer = (datosAutor) => {
   
-  return req.body
+  const nuevoAutor = {
+    id: authors.length + 1, // Asigna un ID automático básico
+    ...datosAutor
+  };
+  
+  authors.push(nuevoAutor);
+  return nuevoAutor;
 }
 
-const updateAuthorServer = () => {
+const updateAuthorServer = (id, datosActualizados) => {
 
- return { id } = req.params
+  const i = authors.findIndex((autor) => autor.id === Number(id));
+
+  if (i === -1) {
+    return null;
+  }
+
+  authors[i] = {
+    ...authors[i],
+    ...datosActualizados
+  };
+
+  return authors[i]
 }
 
-const deleteAuthorServer = () => {
+const deleteAuthorServer = (id) => {
+ 
+  const i = authors.findIndex((autor) => autor.id === Number(id));
 
- return { id } = req.params   
+  if ( i === -1) {
+    return null;
+  }
+   
+  const [autorEliminado] = authors.splice( i, 1);
+  return autorEliminado;
 }
 
 module.exports = {

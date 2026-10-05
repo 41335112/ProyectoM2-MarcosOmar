@@ -1,7 +1,9 @@
 const {
  getAuthorsServe, 
  getAuthorIdServer, 
- createAuthorServer 
+ createAuthorServer, 
+ updateAuthorServer,
+ deleteAuthorServer
 } = require("../servers/authors.servers");
 
 
@@ -26,16 +28,38 @@ function getAuthorIdControllers(req, res){
 
 function createAuthorControllers(req, res){
 
-  const resultado = createAuthorServer();
+  const crear = createAuthorServer();
 
   req.status(201).json({
     msg: 'Autor creado exitosamente',
-    data: resultado
+    data: crear
   });
 
 }
+
+function updateAuthorControllers(req, res){
+ 
+ const actualizar = updateAuthorServer();
+
+ req.status(200).json({
+    msg:'Autor actualizado correctamente'
+ })
+
+}
+
+function deleteAuthorControllers(req, res){
+
+ const eliminar = deleteAuthorServer();
+
+ req.status(200).json({
+  msg: 'Autor con ID ${ } fue eliminado', eliminar
+ })
+}
+
 module.exports = {
     getAuthorsControllers,
     getAuthorIdControllers,
-    createAuthorControllers
+    createAuthorControllers,
+    updateAuthorControllers,
+    deleteAuthorControllers
 }

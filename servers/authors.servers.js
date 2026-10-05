@@ -16,8 +16,20 @@ const createAuthorServer = () => {
   return req.body
 }
 
+const updateAuthorServer = () => {
+
+ return { id } = req.params
+}
+
+const deleteAuthorServer = () => {
+
+ return { id } = req.params   
+}
+
 module.exports = {
  getAuthorsServe,
  getAuthorIdServer,
- createAuthorServer
+ createAuthorServer,
+ updateAuthorServer,
+ deleteAuthorServer
 }

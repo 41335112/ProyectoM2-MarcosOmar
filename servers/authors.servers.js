@@ -3,55 +3,49 @@ const { authors, pool } = require("../src/config/dbConnect");
 
 const getAuthorsServe = async () => {
 
-  const responseDb = await pool.query('SELECT * FROM authors');
+  const responseDb = await pool.query('SELECT * FROM authors ORDER BY id ASC');
  
   return responseDb.rows
 
 }
 
-const getAuthorIdServer = (id) => {
+const getAuthorIdServer = async(id) => {
     
-  const autorEncontrado = authors.find((autor) => autor.id === Number(id));
-  return autorEncontrado
+  const resultado = await db.query('SELECT * FROM authors WHERE id = $1', [id]);
+  return resultado.rows[0]
 }
 
-const createAuthorServer = (datosAutor) => {
+const createAuthorServer = async(datosAutor) => {
   
-  const nuevoAutor = {
-    id: authors.length + 1, // Asigna un ID automático básico
-    ...datosAutor
-  };
+  const result = await db.query(
+    'INSERT INTO authors (name, email, bio) VALUES ($1, $2, $3) RETURNING *',
+    [nombre, gmail, bio]
+  );
   
-  authors.push(nuevoAutor);
-  return nuevoAutor;
+  return result.rows;
 }
 
-const updateAuthorServer = (id, datosActualizados) => {
+const updateAuthorServer = async(id, {nombre, gmail, bio}) => {
 
-  const i = authors.findIndex((autor) => autor.id === Number(id));
+  const resultado = await db.query(
+    `UPDATE authors 
+     SET 
+       name = COALESCE($1, name), 
+       email = COALESCE($2, email), 
+       bio = COALESCE($3, bio) 
+     WHERE id = $4 
+     RETURNING *`,
+    [nombre, gmail, bio, id]
+  );
 
-  if (i === -1) {
-    return null;
-  }
-
-  authors[i] = {
-    ...authors[i],
-    ...datosActualizados
-  };
-
-  return authors[i]
+  return resultado.rows
 }
 
-const deleteAuthorServer = (id) => {
+const deleteAuthorServer = async(id) => {
  
-  const i = authors.findIndex((autor) => autor.id === Number(id));
+  const resultado = await db.query('DELETE FROM authors WHERE id = $1 RETURNING *', [id]);
 
-  if ( i === -1) {
-    return null;
-  }
-   
-  const [autorEliminado] = authors.splice( i, 1);
-  return autorEliminado;
+  return resultado.rows[0]
 }
 
 module.exports = {

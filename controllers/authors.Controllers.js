@@ -14,38 +14,40 @@ const getAuthorsControllers = async(req, res) =>{
   const resultado = await getAuthorsServe();
  
   res.status(200).json({
-    msg: 'todo ok en /',
+    msg: 'todo ok, authors listado',
     data: resultado
   });
 }
 
-function getAuthorIdControllers(req, res){
+const getAuthorIdControllers = async(req, res) =>{
   
   const { id } = req.params;  
-  const resultado = getAuthorIdServer(id);
+  const resultado = await getAuthorIdServer(id);
 
   res.status(200).json({ 
-    msg: `Obtenido autor con ID ${id}`
+    msg: `Obtenido autor con ID ${id}`,
+    data: resultado
   })
 }
 
-function createAuthorControllers(req, res){
+const createAuthorControllers = async(req, res) =>{
   
-  const datosAutor = req.body;  
-  const crear = createAuthorServer(datosAutor);
-
-  res.status(201).json({
-    msg: 'Autor creado exitosamente',
-    data: crear
-  });
+  const { nombre, gmail, bio }= req.body;  
+  
+  if (!nombre || !gmail) {
+      return res.status(400).json({ error: 'Nombre y gmail son requeridos' });
+  }
+ 
+  const newAuthor = await createAuthorServer({ nombre, gmail, bio });
+    res.status(201).json(newAuthor);
+  
 
 }
 
-function updateAuthorControllers(req, res){
+const updateAuthorControllers = async(req, res) =>{
  
   const { id } = req.params;
-  const datosAutor = req.body;
-  const actualizar = updateAuthorServer(id, datosAutor);
+  const actualizar = await updateAuthorServer(id, req.body);
 
   if (!actualizar) {
     return res.status(404).json({ 
@@ -55,15 +57,14 @@ function updateAuthorControllers(req, res){
 
   res.status(200).json({
     msg: `Autor con ID ${id} actualizado correctamente`,
-    data: actualizar
   });
 
 }
 
-function deleteAuthorControllers(req, res){
+const deleteAuthorControllers = async(req, res) =>{
  
   const { id } = req.params;
-  const eliminar = deleteAuthorServer(id);
+  const eliminar = await deleteAuthorServer(id);
 
   if (!eliminar) {
     return res.status(404).json({
@@ -73,7 +74,6 @@ function deleteAuthorControllers(req, res){
 
   res.status(200).json({
     msg: `Autor con ID ${id} fue eliminado`,
-    data: eliminar
   });
 }
 

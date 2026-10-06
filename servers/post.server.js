@@ -1,4 +1,4 @@
-const { posts } = require("../db")
+const { posts } = require("../src/config/dbConnect");
 
 function getPostServer() {
 

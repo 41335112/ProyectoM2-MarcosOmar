@@ -1,4 +1,4 @@
-const { authors } = require("../db")
+const { authors } = require("../src/config/dbConnect");
 
 const getAuthorsServe = () => {
  

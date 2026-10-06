@@ -1,3 +1,5 @@
+const { pool } = require("../src/config/dbConnect");
+
 const {
  getAuthorsServe, 
  getAuthorIdServer, 

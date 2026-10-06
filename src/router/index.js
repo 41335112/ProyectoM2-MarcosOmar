@@ -1,4 +1,5 @@
 const { Router } = require("express");
+
 const {
  getAuthorsControllers,
  getAuthorIdControllers,
@@ -6,6 +7,14 @@ const {
  updateAuthorControllers,
  deleteAuthorControllers
 } = require("../../controllers/authors.Controllers");
+
+const {
+ getPostsController,
+ idPostsController,
+ createPostsController,
+ updatePostsController,
+ deletePostsController,
+} = require("../../controllers/post.controllers");
 
 const router = Router();
 
@@ -22,15 +31,15 @@ router.put("/authors/id", updateAuthorControllers);
 router.delete("/authors/:id", deleteAuthorControllers);
 
 
-router.get(" / ", getPostsController );
+router.get(" /posts ", getPostsController );
 
-router.get(" /:id ", idPostsController ); 
+router.get(" /posts/:id ", idPostsController ); 
 
-router.post(" / ", createPostsController );
+router.post(" /posts ", createPostsController );
 
-router.put(" /:id ", updatePostsController );
+router.put(" /posts/:id ", updatePostsController );
 
-router.delete(" /:id ", deletePostsController);
+router.delete(" /posts/:id ", deletePostsController);
 
 module.exports = {
     router

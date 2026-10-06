@@ -8,9 +8,9 @@ const {
  deletePostServer
 } = require("../servers/post.server");
 
-const getPostsController = (req, res) => {
+const getPostsController = async (req, res) => {
 
- const resultado = getPostServer();
+ const resultado = await getPostServer();
 
  res.status(200).json({
     msg: 'Obteniendo todas las piblicaciones',
@@ -19,61 +19,65 @@ const getPostsController = (req, res) => {
 
 }
 
-const idPostsController = (req, res) => {
+const idPostsController = async (req, res) => {
 
- const { id } = request.params
- const resultado = getPostsIdServer(id);
+ const { id } = request.params;
+ const resultado = await getPostsIdServer(id);
 
- res.status(200).json({ 
-    msg: `Obtenido posts con ID ${id}`
-  })
+ if(!resultado){
+  return res.status(404).json({ error: 'Publicación no encontrada' });
+ }
+
+ res.status(200).json( resultado );
 }
 
-const createPostsController = (req, res) => {
+const createPostsController = async(req, res) => {
   
-  const datosPosts = req.body;  
-  const crear = createPostsServer(datosPosts);
+  const { title, content, author_id, published } = req.body;
 
-  res.status(201).json({
-    msg: 'Posts creado exitosamente',
-    data: crear
-  });
+  if (!title || !content || !author_id) {
+    
+    return res.status(400).json({ 
+     msg: 'Los campos title, content y author_id son obligatorios' 
+     });
+  }
+
+  const crearPost = await createPostsServer({ title, content, author_id, published });
+
+  res.status(201).json(crearPost);
 
 }
 
-const updatePostsController = (req, res) => {
+const updatePostsController = async(req, res) => {
   
   const { id } = req.params;
-  const datosPosts = req.body;
-  const actualizar = updatePostsServer(id, datosPosts);
+  const actualizar = await updatePostsServer(id);
 
   if (!actualizar) {
     return res.status(404).json({ 
-        msg: `El posts con ID ${id} no existe`
+      msg: 'Publicación no encontrada'
     });
   }
 
-  res.status(200).json({
-    msg: `El post con ID ${id} actualizado correctamente`,
-    data: actualizar
+  res.status(200).json({ 
+   msg:'Publicación eliminada correctamente', post: actualizar
   });
 
 }
 
-const deletePostsController = (req, res) =>{
+const deletePostsController = async(req, res) =>{
     
   const { id } = req.params;
-  const eliminar = deletePostServer(id);
+  const eliminar =  await deletePostServer(id);
 
   if (!eliminar) {
-    return res.status(404).json({
-        msg: `El Posts con ID ${id} no existe`
-    });
+    return res.status(404).json({ 
+      msg: 'Publicación no encontrada'
+     });
   }
 
   res.status(200).json({
-    msg: `Posts con ID ${id} fue eliminado`,
-    data: eliminar
+    msg:'Publicación eliminada correctamente', post: eliminar
   });
 
 }

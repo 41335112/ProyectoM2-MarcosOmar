@@ -21,6 +21,17 @@ router.put("/authors/id", updateAuthorControllers);
 
 router.delete("/authors/:id", deleteAuthorControllers);
 
+
+router.get(" / ", getPostsController );
+
+router.get(" /:id ", idPostsController ); 
+
+router.post(" / ", createPostsController );
+
+router.put(" /:id ", updatePostsController );
+
+router.delete(" /:id ", deletePostsController);
+
 module.exports = {
     router
 }

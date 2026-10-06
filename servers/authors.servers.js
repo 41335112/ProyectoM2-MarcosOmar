@@ -1,8 +1,11 @@
-const { authors } = require("../src/config/dbConnect");
+const { response } = require("express");
+const { authors, pool } = require("../src/config/dbConnect");
 
-const getAuthorsServe = () => {
+const getAuthorsServe = async () => {
+
+  const responseDb = await pool.query('SELECT * FROM authors');
  
-  return authors
+  return responseDb.rows
 
 }
 

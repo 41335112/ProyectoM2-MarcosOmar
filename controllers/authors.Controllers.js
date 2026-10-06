@@ -9,9 +9,9 @@ const {
 } = require("../servers/authors.servers");
 
 
-function getAuthorsControllers(req, res){
+const getAuthorsControllers = async(req, res) =>{
   
-  const resultado = getAuthorsServe();
+  const resultado = await getAuthorsServe();
  
   res.status(200).json({
     msg: 'todo ok en /',

@@ -61,9 +61,17 @@ const validarActualizarAutor = (req, res, next) => {
   next();
 };
 
+const errorHandler = (err, req, res, next) => {
+    res.status(err.status || 500).json({
+        error: error.message
+    });
+};
+
+
 module.exports = {
     logginRequest,
     validarIdAutor,
     validarCrearAutor,
-    validarActualizarAutor
+    validarActualizarAutor,
+    errorHandler
 }

@@ -16,19 +16,25 @@ const {
  deletePostsController,
 } = require("../../controllers/post.controllers");
 
+const { 
+ validarIdAutor,
+ validarCrearAutor,
+ validarActualizarAutor
+} = require("../../middlewares");
+
 const router = Router();
 
 
 
 router.get("/authors", getAuthorsControllers);
 
-router.get("/authors/:id", getAuthorIdControllers); 
+router.get("/authors/:id", validarIdAutor, getAuthorIdControllers); 
 
-router.post("/authors", createAuthorControllers);
+router.post("/authors", validarCrearAutor, createAuthorControllers);
 
-router.put("/authors/id", updateAuthorControllers);
+router.put("/authors/id", validarIdAutor, validarActualizarAutor,updateAuthorControllers);
 
-router.delete("/authors/:id", deleteAuthorControllers);
+router.delete("/authors/:id", validarIdAutor, deleteAuthorControllers);
 
 
 router.get(" /posts ", getPostsController );

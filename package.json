@@ -15,11 +15,14 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest",
     "start": "node --watch index.js"
   },
   "dependencies": {
     "express": "^5.2.1",
     "pg": "^8.23.1"
+  },
+  "devDependencies": {
+    "vitest": "^5.0.3" 
   }
 }

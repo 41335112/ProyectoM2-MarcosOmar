@@ -1,4 +1,5 @@
 const { pool } = require("../src/config/dbConnect");
+const {errorHandler} = require("../middlewares/index");
 
 const {
  getPostServer,
@@ -7,6 +8,7 @@ const {
  updatePostsServer,
  deletePostServer
 } = require("../servers/post.server");
+
 
 const getPostsController = async (req, res, next) => {
 

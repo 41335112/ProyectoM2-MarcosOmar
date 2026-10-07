@@ -22,6 +22,12 @@ const {
  validarActualizarAutor
 } = require("../../middlewares");
 
+const { 
+  validarIdPost,
+  validarCrearPost,
+  validarActualizarPost
+} = require("../../middlewares/middPost");
+
 const router = Router();
 
 
@@ -32,20 +38,20 @@ router.get("/authors/:id", validarIdAutor, getAuthorIdControllers);
 
 router.post("/authors", validarCrearAutor, createAuthorControllers);
 
-router.put("/authors/id", validarIdAutor, validarActualizarAutor,updateAuthorControllers);
+router.put("/authors/:id", validarIdAutor, validarActualizarAutor,updateAuthorControllers);
 
 router.delete("/authors/:id", validarIdAutor, deleteAuthorControllers);
 
 
-router.get(" /posts ", getPostsController );
+router.get("/posts ", getPostsController );
 
-router.get(" /posts/:id ", idPostsController ); 
+router.get("/posts/:id ", validarIdPost, idPostsController ); 
 
-router.post(" /posts ", createPostsController );
+router.post("/posts ", validarCrearPost, createPostsController );
 
-router.put(" /posts/:id ", updatePostsController );
+router.put("/posts/:id ", validarIdPost, validarActualizarPost, updatePostsController );
 
-router.delete(" /posts/:id ", deletePostsController);
+router.delete("/posts/:id ", validarIdPost, deletePostsController);
 
 module.exports = {
     router

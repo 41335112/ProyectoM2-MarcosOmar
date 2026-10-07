@@ -21,7 +21,7 @@ const getPostsController = async (req, res) => {
 
 const idPostsController = async (req, res) => {
 
- const { id } = request.params;
+ const { id } = req.params;
  const resultado = await getPostsIdServer(id);
 
  if(!resultado){
@@ -35,13 +35,6 @@ const createPostsController = async(req, res) => {
   
   const { title, content, author_id, published } = req.body;
 
-  if (!title || !content || !author_id) {
-    
-    return res.status(400).json({ 
-     msg: 'Los campos title, content y author_id son obligatorios' 
-     });
-  }
-
   const crearPost = await createPostsServer({ title, content, author_id, published });
 
   res.status(201).json(crearPost);
@@ -51,7 +44,7 @@ const createPostsController = async(req, res) => {
 const updatePostsController = async(req, res) => {
   
   const { id } = req.params;
-  const actualizar = await updatePostsServer(id);
+  const actualizar = await updatePostsServer(id, req.body);
 
   if (!actualizar) {
     return res.status(404).json({ 
@@ -60,7 +53,8 @@ const updatePostsController = async(req, res) => {
   }
 
   res.status(200).json({ 
-   msg:'Publicación eliminada correctamente', post: actualizar
+   msg:'Publicación actualizada correctamente', 
+   post: actualizar
   });
 
 }
@@ -77,7 +71,8 @@ const deletePostsController = async(req, res) =>{
   }
 
   res.status(200).json({
-    msg:'Publicación eliminada correctamente', post: eliminar
+    msg:'Publicación eliminada correctamente',
+    post: eliminar
   });
 
 }

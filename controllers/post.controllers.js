@@ -113,8 +113,3 @@ module.exports = {
  deletePostsController
 }
 
-try{
-
-}catch(error){
-  next(error)
-}

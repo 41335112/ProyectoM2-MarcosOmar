@@ -93,13 +93,19 @@ ProyectoM2/
 │
 ├── src/
 │   ├── config/
+│   │     ├── dbConnetct.js
+│   │     ├── envs.js
+│   │     ├── initDb.js
+│   │     └── swagger.js
 │   │
-│   └── router/
-│       └── index.js
-│
-├── test/
-│
-├── server.js
+│   ├──router/
+│   │     └── index.js
+│   │
+│   ├── test/
+│   │     ├── authorsServerTest.js
+│   │     └── postsControllerTest.js
+│   │
+│   └── server.js
 │
 ├── .env
 ├── .env.example

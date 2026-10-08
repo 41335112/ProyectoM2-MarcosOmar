@@ -2,6 +2,14 @@ const Module = require("node:module");
 const { loadEnvFile } = require("node:process");
 loadEnvFile('.env');
 
+if(process.env.NODE_ENV !== 'production'){
+    loadEnvFile('.env');
+}
+
+const DATABASE_URL = process.env.DATABASE_URL
+
+
+
 const DB_HOST = process.env.DB_HOST
 const DB_PORT= process.env.DB_PORT
 const DB_DATABASE= process.env.DB_DATABASE
@@ -23,5 +31,5 @@ module.exports = {
  DB_IDLE_TIMEOUT,
  DB_CONNECTION_TIMEOUT,
  SERVER_PORT,
-
+ DATABASE_URL
 }

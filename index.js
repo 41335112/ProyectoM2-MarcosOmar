@@ -5,8 +5,6 @@ const { app } = require("./src/server.js");
 
 
 
-
-
 const startServer = async() => {
  
     await pool.query('SELECT 1');

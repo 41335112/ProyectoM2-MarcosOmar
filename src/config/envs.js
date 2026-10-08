@@ -6,7 +6,7 @@ if(process.env.NODE_ENV !== 'production'){
     loadEnvFile('.env');
 }
 
-const DATABASE_URL = process.env.DATABASE_URL
+const URL_DE_LA_BASE_DE_DATOS = process.env.URL_DE_LA_BASE_DE_DATOS
 
 
 
@@ -31,5 +31,5 @@ module.exports = {
  DB_IDLE_TIMEOUT,
  DB_CONNECTION_TIMEOUT,
  SERVER_PORT,
- DATABASE_URL
+ URL_DE_LA_BASE_DE_DATOS
 }

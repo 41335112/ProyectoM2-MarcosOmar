@@ -54,5 +54,5 @@ router.put("/posts/:id ", validarIdPost, validarActualizarPost, updatePostsContr
 router.delete("/posts/:id ", validarIdPost, deletePostsController);
 
 module.exports = {
-    router
+  router
 }

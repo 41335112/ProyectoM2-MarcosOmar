@@ -31,7 +31,6 @@ const {
 const router = Router();
 
 
-
 router.get("/authors", getAuthorsControllers);
 
 router.get("/authors/:id", validarIdAutor, getAuthorIdControllers); 
@@ -43,15 +42,15 @@ router.put("/authors/:id", validarIdAutor, validarActualizarAutor,updateAuthorCo
 router.delete("/authors/:id", validarIdAutor, deleteAuthorControllers);
 
 
-router.get("/posts ", getPostsController );
+router.get("/posts", getPostsController );
 
-router.get("/posts/:id ", validarIdPost, idPostsController ); 
+router.get("/posts/:id", validarIdPost, idPostsController ); 
 
-router.post("/posts ", validarCrearPost, createPostsController );
+router.post("/posts", validarCrearPost, createPostsController );
 
-router.put("/posts/:id ", validarIdPost, validarActualizarPost, updatePostsController );
+router.put("/posts/:id" , validarIdPost, validarActualizarPost, updatePostsController );
 
-router.delete("/posts/:id ", validarIdPost, deletePostsController);
+router.delete("/posts/:id", validarIdPost, deletePostsController);
 
 module.exports = {
   router
